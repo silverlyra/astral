@@ -2,5 +2,4 @@
 " fuzzy finder plugins
 "
 
-let astral#plugin#find#core = astral#plugin#new('Shougo/denite.nvim',
-                                                      \ {'do': ':UpdateRemotePlugins'})
+let astral#plugin#find#core = astral#plugin#new('silverlyra/ish')
