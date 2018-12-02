@@ -43,10 +43,10 @@ function! astral#plane#ui#statusline#def(name, impl, ...) abort
   let a:options = get(a:, 1, {})
   let type = get(a:options, 'type', '')
 
-  let g:lightline.component_expand[name] = impl
+  let g:lightline.component_expand[a:name] = a:impl
 
   if strlen(type) > 0
-    let g:lightline.component_type[name] = type
+    let g:lightline.component_type[a:name] = type
   endif
 endfunction
 
