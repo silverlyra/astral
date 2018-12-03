@@ -3,7 +3,7 @@
 "
 
 function! astral#plane#ui#tree#enter(options) abort
-  call g:astral#plugin#ui#tree.use()
+  call astral#plugin#ui#('tree')
 endfunction
 
 function! astral#plane#ui#tree#configure(options) abort

@@ -5,7 +5,7 @@
 scriptencoding utf-8
 
 function! astral#plane#find#enter(options) abort
-  call g:astral#plugin#find#core.use()
+  call astral#plugin#find#('core')
 endfunction
 
 function! astral#plane#find#configure(options) abort

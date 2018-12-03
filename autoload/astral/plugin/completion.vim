@@ -4,6 +4,10 @@
 " astral uses deoplete as its completion framework.
 "
 
+function! astral#plugin#completion#(name) abort
+  call eval(printf('g:astral#plugin#completion#%s.use()', a:name))
+endfunction
+
 let astral#plugin#completion#core = astral#plugin#new('Shougo/deoplete.nvim',
                                                       \ {'do': ':UpdateRemotePlugins'})
 

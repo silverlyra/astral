@@ -8,7 +8,7 @@ let s:special_filenames = {}
 let s:special_filetypes = {'help': {'name': 'Help', 'filename': {-> expand('%:t')}}}
 
 function! astral#plane#ui#statusline#enter(options) abort
-  call g:astral#plugin#ui#statusline.use()
+  call astral#plugin#ui#('statusline')
 endfunction
 
 function! astral#plane#ui#statusline#configure(options) abort

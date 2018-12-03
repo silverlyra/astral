@@ -3,7 +3,7 @@
 "
 
 function! astral#plane#completion#enter(options) abort
-  call g:astral#plugin#completion#core.use()
+  call astral#plugin#completion#('core')
 endfunction
 
 function! astral#plane#completion#configure(options) abort

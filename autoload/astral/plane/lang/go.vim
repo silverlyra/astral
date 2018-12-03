@@ -3,10 +3,10 @@
 "
 
 function! astral#plane#lang#go#enter(options) abort
-  call g:astral#plugin#lang#go.use()
+  call g:astral#plugin#lang#('go')
 
   " TODO: how to make this more selective
-  call g:astral#plugin#completion#go.use()
+  call g:astral#plugin#completion#('go')
 endfunction
 
 function! astral#plane#lang#go#configure(options) abort
