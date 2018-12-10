@@ -9,6 +9,9 @@ let s:special_filetypes = {'help': {'name': 'Help', 'filename': {-> expand('%:t'
 
 function! astral#plane#ui#statusline#enter(options) abort
   call astral#plugin#ui#('statusline')
+  if get(a:options, 'tabline') ==# 'buffers'
+    call astral#plugin#ui#('statusline_buftabs')
+  endif
 endfunction
 
 function! astral#plane#ui#statusline#configure(options) abort
@@ -21,6 +24,10 @@ function! astral#plane#ui#statusline#configure(options) abort
     \   'inactive': {
     \     'left': [['filename']],
     \     'right': [['percent']],
+    \   },
+    \   'tabline': {
+    \     'left': [['tabs']],
+    \     'right': [['close']],
     \   },
     \   'component_expand': {
     \     'inactive_filename': 'astral#plane#ui#statusline#inactive_filename'
@@ -37,6 +44,18 @@ function! astral#plane#ui#statusline#configure(options) abort
     \   'separator': {'left': '', 'right': ''},
     \   'subseparator': {'left': '', 'right': ''}
     \ }
+
+  if get(a:options, 'tabline') ==# 'buffers'
+    let g:lightline.tabline.left = [['buffers']]
+    let g:lightline.component_expand.buffers = 'lightline#bufferline#buffers'
+    let g:lightline.component_type.buffers = 'tabsel'
+
+    let g:lightline#bufferline#unicode_symbols = 1
+    let g:lightline#bufferline#min_buffer_count = 1
+  endif
+  if get(a:options, 'tabline_close', 1) ==# 0
+    let g:lightline.tabline.right = []
+  endif
 endfunction
 
 function! astral#plane#ui#statusline#def(name, impl, ...) abort
@@ -52,30 +71,33 @@ endfunction
 
 function! astral#plane#ui#statusline#add(component, ...) abort
   let a:options = get(a:, 1, {})
+  let dest = get(a:options, 'dest', 'active')
   let side = get(a:options, 'side', 'right')
   let priority = get(a:options, 'priority', 0)
 
-  if side == 'left'
+  let target = get(g:lightline, dest)
+
+  if side ==# 'left'
     if priority
-      for i in range(len(g:lightline.active.left))
-        if index(g:lightline.active.left[i], 'filename') >= 0
-          call insert(g:lightline.active.left, a:component, i)
+      for i in range(len(l:target.left))
+        if index(l:target.left[i], 'filename') >= 0
+          call insert(l:target.left, a:component, i)
           break
         endif
       endfor
     else
-      call append(g:lightline.active.left, a:component)
+      call add(l:target.left, a:component)
     endif
-  elseif side == 'right'
+  elseif side ==# 'right'
     if priority
-      for i in range(len(g:lightline.active.right))
-        if index(g:lightline.active.right[i], 'filetype') >= 0
-          call insert(g:lightline.active.right, a:component, i + 1)
+      for i in range(len(l:target.right))
+        if index(l:target.right[i], 'filetype') >= 0
+          call insert(l:target.right, a:component, i + 1)
           break
         endif
       endfor
     else
-      call append(g:lightline.active.right, a:component)
+      call add(l:target.right, a:component)
     endif
   endif
 endfunction
@@ -126,7 +148,7 @@ function! astral#plane#ui#statusline#filename() abort
 
   let filename = winwidth(0) > 70 ? expand('%') : expand('%:t')
   let modified = &modified ? ' +' : ''
-  if filename == ''
+  if filename ==# ''
     let filename = '[no name]'
   endif
   return fnamemodify(filename, ':~:.') . modified
