@@ -59,8 +59,8 @@ function! astral#plane#ui#statusline#configure(options) abort
 endfunction
 
 function! astral#plane#ui#statusline#def(name, impl, ...) abort
-  let a:options = get(a:, 1, {})
-  let type = get(a:options, 'type', '')
+  let l:options = get(a:, 1, {})
+  let type = get(l:options, 'type', '')
 
   let g:lightline.component_expand[a:name] = a:impl
 
@@ -70,10 +70,10 @@ function! astral#plane#ui#statusline#def(name, impl, ...) abort
 endfunction
 
 function! astral#plane#ui#statusline#add(component, ...) abort
-  let a:options = get(a:, 1, {})
-  let dest = get(a:options, 'dest', 'active')
-  let side = get(a:options, 'side', 'right')
-  let priority = get(a:options, 'priority', 0)
+  let l:options = get(a:, 1, {})
+  let dest = get(l:options, 'dest', 'active')
+  let side = get(l:options, 'side', 'right')
+  let priority = get(l:options, 'priority', 0)
 
   let target = get(g:lightline, dest)
 
@@ -103,9 +103,9 @@ function! astral#plane#ui#statusline#add(component, ...) abort
 endfunction
 
 function! astral#plane#ui#statusline#def_special(name, match, ...) abort
-  let a:options = get(a:, 1, {})
+  let l:options = get(a:, 1, {})
 
-  let special = copy(a:options)
+  let special = copy(l:options)
   let special.name = a:name
 
   if has_key(a:match, 'name')

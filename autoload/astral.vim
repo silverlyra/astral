@@ -39,12 +39,12 @@ function! astral#end() abort
 endfunction
 
 function! astral#use(plane, ...) abort
-  let a:options = get(a:, 1, {})
+  let l:options = get(a:, 1, {})
 
   let Enter = s:plane_hook(a:plane, 'enter')
-  call Enter(a:options)
+  call Enter(l:options)
 
-  call add(s:planes, {'name': a:plane, 'options': a:options})
+  call add(s:planes, {'name': a:plane, 'options': l:options})
 endfunction
 
 function! s:define_commands() abort

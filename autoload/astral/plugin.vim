@@ -7,9 +7,9 @@
 "
 
 function! astral#plugin#new(name, ...) abort
-  let a:options = get(a:, 1, {})
+  let l:options = get(a:, 1, {})
 
-  let plugin = {'name': a:name, 'options': a:options, 'used': 0}
+  let plugin = {'name': a:name, 'options': l:options, 'used': 0}
 
   function plugin.use() abort
     if self.used
